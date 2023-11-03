@@ -3,7 +3,7 @@ import { WithId } from "mongodb";
 
 const API_URL = '/api/expenses'
 
-export const getMontylyExpenses = async (date: string): Promise<number> => {
+export const getMonthlyExpenses = async (date: string): Promise<number> => {
     
      const response = await fetch(`${API_URL}/monthly/?date=${date}`);
      const data = await response.json();

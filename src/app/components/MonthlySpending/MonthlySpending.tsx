@@ -1,17 +1,11 @@
-import { getMontylyExpenses } from '@/app/actions/expenses'
 import React from 'react'
 
 export interface MonthlySpendingProps {
-    date: string
+    expenses: number
 }
 
-const getData = async (date: string) => {
-  const res = await getMontylyExpenses(date);
-  return res;
-}
-
-export default function MonthlySpending({date}: MonthlySpendingProps) {
+export default function MonthlySpending({expenses}: MonthlySpendingProps) {
   return (
-    <h2>You spent {getData(date)} this month</h2>
+    <h2>You spent {expenses} this month</h2>
   )
 }

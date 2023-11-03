@@ -1,30 +1,25 @@
 'use client'
 import React, { useEffect } from "react";
 import styles from "./MoneyManger.module.css";
-import { addExpense, deleteExpense, getDailyExpenses } from "@/app/actions/expenses";
+import { getDailyExpenses } from "@/app/actions/expenses";
 import ListElement from "./ListElement/ListElement";
-import { tree } from "next/dist/build/templates/app-page";
 import Loading from "@/app/loading";
+import { Expense } from "@/types/Expense.types";
 
-export default function MoneyManager({date}: {date: string}) {
+interface MoneyManagerProps {date: string, onAddExpense:  (name: string, value: number, date: string) => Promise<Boolean>, onDeleteExpense: (id: string) => Promise<void> }
+
+export default function MoneyManager({date, onAddExpense, onDeleteExpense}: MoneyManagerProps) {
   const [name, setName] = React.useState("");
   const [value, setValue] = React.useState<number|string>("");
   const [isLoading, setIsLoading] = React.useState(true);
-  const [expenses, setExpenses] = React.useState<React.ReactElement[]>([]);
+  const [expenses, setExpenses] = React.useState<Expense[]>([]);
 
   const updateExpenses = async (date: string) => {
-    return (await getDailyExpenses(date)).map((expense) => (
-          <ListElement
-            key={expense._id.toString()}
-            name={expense.name}
-            value={expense.value}
-            onDelete={() => handleDeleteExpense(expense._id.toString(), date)}
-          />
-        ))
+    return (await getDailyExpenses(date));
   }
   
   const handleDeleteExpense = (id: string, date: string) => {
-    deleteExpense(id).then(() => {
+    onDeleteExpense(id).then(() => {
       updateExpenses(date).then((expenses) => {setExpenses(expenses)});
     }).catch((error) => {
       console.error(error);
@@ -32,13 +27,14 @@ export default function MoneyManager({date}: {date: string}) {
   }
 
   const handleAddExpense = (name: string, value: number, date: string) => {
-    addExpense({ name, value, date }).then(() => {
+
+    onAddExpense(name, value, date ).then(() => {
       setName("");
       setValue("");
       updateExpenses(date).then((expenses) => {setExpenses(expenses)});
     });
   }
-  
+
 
   useEffect(() => {
     updateExpenses(date).then((exp) => {
@@ -51,7 +47,14 @@ export default function MoneyManager({date}: {date: string}) {
     if (isLoading) {
       return <Loading />;
     } else {
-      return expenses.length ? expenses : <h2>No expenses</h2>;
+      return expenses.length ? expenses.map((expense) => (
+        <ListElement
+          key={expense._id.toString()}
+          name={expense.name}
+          value={expense.value}
+          onDelete={() => handleDeleteExpense(expense._id.toString(), date)}
+        />
+      )) : <h2>No expenses</h2>;
     }
   }
 

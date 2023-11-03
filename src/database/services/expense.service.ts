@@ -49,10 +49,9 @@ export class ExpensesService {
     }
 
     const collection = this.db.collection("expenses");
+    const [_, month, year] = date.split(".")
 
-    const [_, month, year] = date.split("/")
-
-    const pattern = new RegExp(`^\\d{1,2}\\/${month}\\/${year}`)
+    const pattern = new RegExp(`^\\d{1,2}\\.${month}\\.${year}`)
 
     const expenses = await collection.find({ date: {$regex: pattern} }).toArray()
 
