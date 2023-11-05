@@ -34,17 +34,11 @@ W celu stworzenia nowego projektu wywołaj komendę
 npx create-next-app@latest
 ```
 
-Po wywołaniu komendy wybierz następujące opcje:
-
-![Untitled](Podstawy%20Aplikacji%20Internetowych%2027d7d849d5c747459d61a38f255556a0/Untitled.png)
-
 Następnie w folderze który został stworzony wykonaj komendę `npm run dev` w celu uruchomienia aplikacji.
 
-![Untitled](Podstawy%20Aplikacji%20Internetowych%2027d7d849d5c747459d61a38f255556a0/Untitled%201.png)
 
 Po wykonaniu komendy otwórz przeglądarkę i wejdź na strone `[http://localhost:3000](http://localhost:3000)`
 
-![Untitled](Podstawy%20Aplikacji%20Internetowych%2027d7d849d5c747459d61a38f255556a0/Untitled%202.png)
 
 # Baza Danych
 
@@ -73,13 +67,10 @@ Powyższa konfiguracja zapewnia nam dostęp do bazy danych `MongoDB` na porcie `
 
 Aby uruchomić bazę wykonaj polecenie `docker compose up -d` . Flaga `-d` uruchamia kontener w tle.
 
-![Untitled](Podstawy%20Aplikacji%20Internetowych%2027d7d849d5c747459d61a38f255556a0/Untitled%203.png)
 
 Baza danych jest gotowa do połączenia.
 
 Jeżeli będziesz chciał wyłączyć kontener wykonaj polecenie `docker compose down`
-
-![Untitled](Podstawy%20Aplikacji%20Internetowych%2027d7d849d5c747459d61a38f255556a0/Untitled%204.png)
 
 W głównym folderze stwórz plik `.env` . W tym pliku przechowywane są zmienne środowiskowe takie jak secret do tokenów czy , jak w naszym przypadku, dane bazy danych. Po stworzeniu folderu dodaj do niego następujące dane:
 
@@ -851,6 +842,3 @@ Uruchom aplikację komendą
 npm run dev
 ```
 
-Skończona aplikacja powinna wyglądać tak:
-
-![Untitled](Podstawy%20Aplikacji%20Internetowych%2027d7d849d5c747459d61a38f255556a0/Untitled%205.png)
